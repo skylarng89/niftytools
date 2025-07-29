@@ -113,7 +113,7 @@ jobs:
 
       - name: Upload release artifact
         if: steps.semantic.outputs.release.version
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: release-version
           path: release_version.txt
