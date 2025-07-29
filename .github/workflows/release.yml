@@ -27,12 +27,6 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      # - name: Lint
-      #   run: bun run lint
-
-      # - name: Type check
-      #   run: bun run type-check
-
       - name: Build
         run: bun run build
 
@@ -108,16 +102,18 @@ jobs:
         run: bun install
 
       - name: Release
+        id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bun run release
 
-      - name: Tag Docker images with release version
-        if: env.RELEASE_VERSION
-        run: |
-          echo "Tagging Docker images with version $RELEASE_VERSION"
-          for service in backend user-frontend admin-frontend; do
-            docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${service}:${{ github.sha }} \
-                       ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${service}:v$RELEASE_VERSION
-            docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${service}:v$RELEASE_VERSION
-          done
+      - name: Create release artifact
+        if: steps.semantic.outputs.release.version
+        run: echo "${{ steps.semantic.outputs.release.version }}" > release_version.txt
+
+      - name: Upload release artifact
+        if: steps.semantic.outputs.release.version
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-version
+          path: release_version.txt
