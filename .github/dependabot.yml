@@ -8,18 +8,16 @@ updates:
   - package-ecosystem: "bun"
     directories:
       - "/"
-      - "/apps/admin-frontend"
-      - "/apps/backend"
-      - "/apps/user-frontend"
+      - "/apps/*"
+      - "/packages/*"
     schedule:
       interval: "daily"
     target-branch: "dev"
   - package-ecosystem: "npm"
     directories:
       - "/"
-      - "/apps/admin-frontend"
-      - "/apps/backend"
-      - "/apps/user-frontend"
+      - "/apps/*"
+      - "/packages/*"
     schedule:
       interval: "daily"
     target-branch: "dev"
