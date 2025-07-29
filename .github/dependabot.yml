@@ -10,6 +10,7 @@ updates:
       - "/"
       - "/apps/*"
       - "/packages/*"
+      - "plugins/*"
     schedule:
       interval: "daily"
     target-branch: "dev"
@@ -18,6 +19,7 @@ updates:
       - "/"
       - "/apps/*"
       - "/packages/*"
+      - "plugins/*"
     schedule:
       interval: "daily"
     target-branch: "dev"
