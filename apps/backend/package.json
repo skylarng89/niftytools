@@ -33,7 +33,7 @@
     "ioredis": "^5.4.1",
     "pg": "^8.13.0",
     "pino": "^9.4.0",
-    "pino-pretty": "^11.2.2",
+    "pino-pretty": "^13.0.0",
     "uuid": "^10.0.0",
     "@niftytools/shared": "workspace:*",
     "@niftytools/text-tools-plugin": "workspace:*"
