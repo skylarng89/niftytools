@@ -1,0 +1,14 @@
+{
+  "name": "@niftytools/admin-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NiftyTools admin interface",
+  "type": "module",
+  "scripts": {
+    "build": "mkdir -p dist && echo '<!DOCTYPE html><html><head><title>Admin Frontend - Coming Soon</title></head><body><h1>Admin Frontend</h1><p>Coming soon...</p></body></html>' > dist/index.html",
+    "dev": "echo 'Admin frontend not implemented yet'",
+    "preview": "echo 'Admin frontend not implemented yet'"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

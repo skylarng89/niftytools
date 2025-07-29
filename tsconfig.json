@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@niftytools/shared/*": ["./packages/shared/src/*"],
+      "@niftytools/ui-components/*": ["./packages/ui-components/src/*"],
+      "@niftytools/api-client/*": ["./packages/api-client/src/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.vue"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/dist",
+    "**/.turbo"
+  ],
+  "references": [
+    { "path": "./apps/backend" },
+    { "path": "./apps/user-frontend" },
+    { "path": "./apps/admin-frontend" },
+    { "path": "./packages/shared" },
+    { "path": "./packages/ui-components" },
+    { "path": "./packages/api-client" },
+    { "path": "./plugins/text-tools" },
+    { "path": "./plugins/auth" },
+    { "path": "./plugins/core" }
+  ]
+}

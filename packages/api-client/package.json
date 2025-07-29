@@ -1,0 +1,22 @@
+{
+  "name": "@niftytools/api-client",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NiftyTools API client library",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "@types/node": "^22.5.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.8",
+    "@niftytools/shared": "workspace:*"
+  }
+}

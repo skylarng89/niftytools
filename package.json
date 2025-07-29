@@ -1,0 +1,71 @@
+{
+  "name": "niftytools",
+  "version": "1.0.0",
+  "description": "A full-stack plugin-based monolith application with dual frontend interfaces",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "plugins/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:user": "turbo run dev --filter=user-frontend",
+    "dev:admin": "turbo run dev --filter=admin-frontend",
+    "dev:backend": "turbo run dev --filter=backend",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "test:skip": "echo '⏭️  Tests skipped'",
+    "test:unit": "turbo run test:unit",
+    "test:integration": "turbo run test:integration",
+    "test:e2e": "turbo run test:e2e",
+    "test:watch": "turbo run test:watch",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "type-check": "turbo run type-check",
+    "db:migrate": "turbo run db:migrate --filter=backend",
+    "db:seed": "turbo run db:seed --filter=backend",
+    "db:reset": "turbo run db:reset --filter=backend",
+    "clean": "turbo run clean",
+    "release": "semantic-release",
+    "version": "node -p \"require('./package.json').version\"",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "semantic-release": "^23.0.2",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@types/node": "^22.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.5.0",
+    "@typescript-eslint/parser": "^8.5.0",
+    "@vue/eslint-config-typescript": "^14.0.0",
+    "eslint": "^9.10.0",
+    "eslint-plugin-vue": "^9.28.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.3.0",
+    "turbo": "^2.1.0",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "bun": ">=1.2.0"
+  },
+  "packageManager": "bun@1.2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skylarng89/nifty-tools.git"
+  },
+  "keywords": [
+    "vue",
+    "fastify",
+    "bun",
+    "typescript",
+    "plugin-based",
+    "monolith",
+    "tailwind"
+  ],
+  "author": "Patrick Aziken",
+  "license": "GPL v3"
+}

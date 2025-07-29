@@ -1,0 +1,29 @@
+{
+  "name": "@niftytools/text-tools-plugin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Text manipulation tools plugin for NiftyTools",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint src --max-warnings 0",
+    "lint:fix": "eslint src --fix",
+    "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "test:unit": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "fastify": "^5.4.0",
+    "vue": "^3.5.18",
+    "@fastify/multipart": "^9.0.1",
+    "@niftytools/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "@types/node": "^22.5.0"
+  }
+}
