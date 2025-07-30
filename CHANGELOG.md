@@ -1,3 +1,12 @@
+## <small>1.0.1 (2025-07-30)</small>
+
+* Merge pull request #26 from skylarng89/dev ([fa3f07c](https://github.com/skylarng89/niftytools/commit/fa3f07c)), closes [#26](https://github.com/skylarng89/niftytools/issues/26)
+* Merge remote-tracking branch 'origin/dev' ([cad78cb](https://github.com/skylarng89/niftytools/commit/cad78cb))
+* Merge remote-tracking branch 'origin/dev' ([7789d91](https://github.com/skylarng89/niftytools/commit/7789d91))
+* fix: git repo url ([a00e3c4](https://github.com/skylarng89/niftytools/commit/a00e3c4))
+* release: updated workflow ([45dcb0f](https://github.com/skylarng89/niftytools/commit/45dcb0f))
+* ci: update workflow ([d61e487](https://github.com/skylarng89/niftytools/commit/d61e487))
+
 ## 1.0.0 (2025-07-29)
 
 * Merge pull request #1 from skylarng89/dev ([be4e635](https://github.com/skylarng89/nifty-tools/commit/be4e635)), closes [#1](https://github.com/skylarng89/nifty-tools/issues/1)
