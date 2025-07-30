@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # Backend API Service
   backend:
-    image: ghcr.io/skylarng89/nifty-tools-backend:${BACKEND_VERSION:-latest}
+    image: ghcr.io/skylarng89/nifty-tools-backend:latest
     container_name: niftytools-backend
     hostname: api.niftytools.prod
     env_file:
@@ -51,7 +51,7 @@ services:
 
   # User Frontend Service
   user-frontend:
-    image: ghcr.io/skylarng89/nifty-tools-user-frontend:${USER_FRONTEND_VERSION:-latest}
+    image: ghcr.io/skylarng89/nifty-tools-user-frontend:latest
     container_name: niftytools-user-frontend
     hostname: user.niftytools.prod
     env_file:
@@ -83,7 +83,7 @@ services:
 
   # Admin Frontend Service
   admin-frontend:
-    image: ghcr.io/skylarng89/nifty-tools-admin-frontend:${ADMIN_FRONTEND_VERSION:-latest}
+    image: ghcr.io/skylarng89/nifty-tools-admin-frontend:latest
     container_name: niftytools-admin-frontend
     hostname: admin.niftytools.prod
     env_file:
