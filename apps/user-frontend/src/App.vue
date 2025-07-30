@@ -28,12 +28,12 @@
       <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
         <div class="flex justify-center space-x-6 md:order-2">
           <p class="text-center text-base text-gray-400">
-            Version {{ version }}
+            Version {{ appVersion }}
           </p>
         </div>
         <div class="mt-8 md:mt-0 md:order-1">
           <p class="text-center text-base text-gray-400">
-            &copy; {{ new Date().getFullYear() }} NiftyTools. All rights reserved.
+            &copy; {{ currentYear }} NiftyTools. All rights reserved.
           </p>
         </div>
       </div>
@@ -42,6 +42,9 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import NiftyLogo from './components/NiftyLogo.vue'
-import { version } from '../../../../package.json'
+
+const appVersion = computed(() => __APP_VERSION__)
+const currentYear = new Date().getFullYear()
 </script>
