@@ -1,3 +1,13 @@
+## 3.0.0 (2025-07-31)
+
+* feat!: fixed failing deployment ([8825a7a](https://github.com/skylarng89/niftytools/commit/8825a7a))
+* Merge pull request #30 from skylarng89/dev ([d0d3c98](https://github.com/skylarng89/niftytools/commit/d0d3c98)), closes [#30](https://github.com/skylarng89/niftytools/issues/30)
+
+
+### BREAKING CHANGE
+
+* deploy regardless semantic release status
+
 ## 2.0.0 (2025-07-31)
 
 * feat1: stable release ([c06259c](https://github.com/skylarng89/niftytools/commit/c06259c))
