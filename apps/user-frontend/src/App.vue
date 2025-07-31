@@ -42,9 +42,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref } from 'vue'
 import NiftyLogo from './components/NiftyLogo.vue'
 
-const appVersion = computed(() => __APP_VERSION__)
+const appVersion = ref(__APP_VERSION__)
 const currentYear = new Date().getFullYear()
 </script>
