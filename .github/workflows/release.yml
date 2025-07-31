@@ -60,7 +60,6 @@ jobs:
        run: npx semantic-release
 
      - name: Deploy to server
-       if: steps.semantic.outputs.new_release_published == 'true'
        uses: appleboy/ssh-action@v1.2.2
        with:
          host: ${{ secrets.SSH_HOST }}
