@@ -9,7 +9,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  BUN_VERSION: '1.2.19' # Pin version for consistency
+  BUN_VERSION: '1.1.34' # Pin version for consistency
 
 jobs:
   # Separate job for testing and validation
@@ -34,7 +34,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
           restore-keys: |
             ${{ runner.os }}-bun-
 
@@ -158,7 +158,7 @@ jobs:
     if: needs.release.outputs.new-release-published == 'true'
     environment:
       name: production
-      url: ${{ secrets.PRODUCTION_URL }}
+      url: https://niftytools.app
 
     steps:
       - name: Deploy to server
@@ -176,25 +176,17 @@ jobs:
             # Navigate to deployment directory
             cd /deployments/niftytools/prod
 
+            # Pull latest images
+            echo "Pulling latest images..."
+            docker-compose pull
+
             # Start services
             echo "Starting services..."
             docker-compose up -d --remove-orphans
 
-            # Wait for services to be healthy
-            echo "Waiting for services to be healthy..."
-            timeout 30 bash -c 'until docker-compose ps | grep -q "Up (healthy)"; do sleep 5; done' || {
-              echo "Services failed to become healthy, rolling back..."
-              docker-compose down
-              if [ -f "backup/docker-compose.yml" ]; then
-                cp backup/docker-compose.yml .
-                docker-compose up -d
-              fi
-              exit 1
-            }
-
             # Clean up old images
             echo "Cleaning up old images..."
-            docker image prune -a -f --filter "until=72h"
+            docker image prune -a -f --filter "until=48h"
 
             echo "Deployment completed successfully!"
 
@@ -206,6 +198,23 @@ jobs:
     if: always() && needs.release.outputs.new-release-published == 'true'
 
     steps:
+      - name: Set notification variables
+        id: vars
+        env:
+          RELEASE_VERSION: ${{ needs.release.outputs.new-release-version }}
+          DEPLOYMENT_STATUS: ${{ needs.deploy.result }}
+        run: |
+          if [ "$DEPLOYMENT_STATUS" == "success" ]; then
+            echo "status-emoji=✅" >> $GITHUB_OUTPUT
+            echo "status-text=succeeded" >> $GITHUB_OUTPUT
+            echo "status-color=28a745" >> $GITHUB_OUTPUT
+          else
+            echo "status-emoji=❌" >> $GITHUB_OUTPUT
+            echo "status-text=failed" >> $GITHUB_OUTPUT
+            echo "status-color=dc3545" >> $GITHUB_OUTPUT
+          fi
+          echo "short-sha=${GITHUB_SHA:0:7}" >> $GITHUB_OUTPUT
+
       - name: GitHub Issue Notification
         if: env.CREATE_GITHUB_ISSUE == 'true'
         uses: actions/github-script@v7
@@ -237,3 +246,4 @@ jobs:
               body: body,
               labels: ['deployment', '${{ steps.vars.outputs.status-text }}']
             });
+
