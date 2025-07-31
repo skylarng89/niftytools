@@ -9,6 +9,7 @@
     "noEmit": false,
     "baseUrl": ".",
     "paths": {
+      "@niftytools/shared": ["../../packages/shared/src/index.ts"],
       "@niftytools/shared/*": ["../../packages/shared/src/*"]
     }
   },
