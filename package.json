@@ -67,5 +67,8 @@
     "tailwind"
   ],
   "author": "Patrick Aziken",
-  "license": "GPL v3"
+  "license": "GPL v3",
+  "dependencies": {
+    "exponential-backoff": "^3.1.2"
+  }
 }

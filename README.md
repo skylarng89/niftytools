@@ -334,10 +334,10 @@ bun run start
 
 ```bash
 # Development with services only
-docker-compose up -d postgres redis minio
+docker-compose up -d postgres redis
 
 # Full production deployment
-docker-compose -f docker-compose.prod.yml up -d
+docker-compose -f docker-compose-prod.yml up -d
 ```
 
 ## 📚 Documentation
