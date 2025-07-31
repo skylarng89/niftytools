@@ -1,3 +1,11 @@
+## 1.1.0 (2025-07-31)
+
+* Merge pull request #27 from skylarng89/dev ([670ea9e](https://github.com/skylarng89/niftytools/commit/670ea9e)), closes [#27](https://github.com/skylarng89/niftytools/issues/27)
+* Merge pull request #28 from skylarng89/dev ([e26bfc2](https://github.com/skylarng89/niftytools/commit/e26bfc2)), closes [#28](https://github.com/skylarng89/niftytools/issues/28)
+* fix: app version in footer ([f9952f8](https://github.com/skylarng89/niftytools/commit/f9952f8))
+* fix: missing pipeline dependency ([ff64c58](https://github.com/skylarng89/niftytools/commit/ff64c58))
+* feat: app version, ci enhancements ([f02874b](https://github.com/skylarng89/niftytools/commit/f02874b))
+
 ## <small>1.0.1 (2025-07-30)</small>
 
 * Merge pull request #26 from skylarng89/dev ([fa3f07c](https://github.com/skylarng89/niftytools/commit/fa3f07c)), closes [#26](https://github.com/skylarng89/niftytools/issues/26)
