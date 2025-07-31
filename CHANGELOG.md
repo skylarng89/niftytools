@@ -1,3 +1,15 @@
+## 2.0.0 (2025-07-31)
+
+* feat1: stable release ([c06259c](https://github.com/skylarng89/niftytools/commit/c06259c))
+* feat: stable release ([355ceca](https://github.com/skylarng89/niftytools/commit/355ceca))
+* Merge remote-tracking branch 'origin/dev' ([c8c9167](https://github.com/skylarng89/niftytools/commit/c8c9167))
+* release: stable version release ([4ca0efd](https://github.com/skylarng89/niftytools/commit/4ca0efd))
+
+
+### BREAKING CHANGE
+
+* bumped all version numbers
+
 ## 1.1.0 (2025-07-31)
 
 * Merge pull request #27 from skylarng89/dev ([670ea9e](https://github.com/skylarng89/niftytools/commit/670ea9e)), closes [#27](https://github.com/skylarng89/niftytools/issues/27)
