@@ -67,6 +67,10 @@ jobs:
          username: ${{ secrets.SSH_USERNAME }}
          key: ${{ secrets.SSH_KEY }}
          script: |
-           cd /deployments/niftytools
+           set -e
+           
+           cd /deployments/niftytools/prod
+           
            docker-compose up -d
+           
            docker image prune -a -f
