@@ -77,9 +77,7 @@
               </svg>
               <div class="mt-4">
                 <label class="cursor-pointer">
-                  <span class="text-indigo-600 hover:text-indigo-500 font-medium"
-                    >Upload a file</span
-                  >
+                  <span class="text-indigo-600 hover:text-indigo-500 font-medium">Upload a file</span>
                   <span class="text-gray-500"> or drag and drop</span>
                   <input
                     ref="fileInput"
