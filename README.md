@@ -1,6 +1,4 @@
-Dev: [![Build and Release](https://github.com/skylarng89/nifty-tools/actions/workflows/package-release.yml/badge.svg?branch=dev)](https://github.com/skylarng89/nifty-tools/actions/workflows/package-release.yml)
-
-Main: [![Build and Release](https://github.com/skylarng89/nifty-tools/actions/workflows/package-release.yml/badge.svg?branch=main)](https://github.com/skylarng89/nifty-tools/actions/workflows/package-release.yml)
+Production: [![CI/CD Pipeline](https://github.com/skylarng89/niftytools/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/skylarng89/niftytools/actions/workflows/release.yml)
 
 # NiftyTools
 
@@ -15,8 +13,8 @@ NiftyTools is a **production-ready** plugin-based monolith application providing
 ## ✨ Key Features
 
 - **✅ Text Sorting Tool**: 8 different algorithms (Alphabetical, Natural, Length, Reverse, Shuffle) with file upload support
-- **🔌 Plugin-Based Architecture**: Extensible system with modular feature development  
-- **⚡ High Performance**: Fastify + Bun backend with sub-100ms API responses
+- **🔌 Plugin-Based Architecture**: Extensible system with modular feature development
+- **⚡ High Performance**: Express + Node.js 24 backend with sub-100ms API responses
 - **📱 Modern UI**: Vue 3 + Tailwind CSS with responsive design and gradient aesthetics
 - **📊 Real-time Processing**: Live sorting with statistics and copy-to-clipboard functionality
 - **📁 File Processing**: Upload text files (txt, csv) up to 1MB with validation
@@ -30,10 +28,11 @@ NiftyTools is a **production-ready** plugin-based monolith application providing
 - **Shared Components**: Common UI library with consistent design patterns
 
 ### Backend System
-- **API Server**: Fastify + Bun for maximum performance
+- **API Server**: Express + Node.js 24 for maximum performance
 - **Plugin System**: Modular feature architecture with plugin isolation
 - **Database**: PostgreSQL with Redis caching layer
 - **Storage**: S3-compatible storage with SFTP fallback option
+- **Architecture Pattern**: MVC (Model-View-Controller) for better code organization
 
 ## 🛠️ Tech Stack
 
@@ -48,13 +47,13 @@ NiftyTools is a **production-ready** plugin-based monolith application providing
 - **Utilities**: @vueuse/core for Vue composition utilities
 
 ### Backend
-- **Runtime**: Bun for JavaScript execution and package management
-- **Framework**: Fastify for high-performance HTTP server
+- **Runtime**: Node.js 24 for JavaScript execution and package management
+- **Framework**: Express for high-performance HTTP server
 - **Language**: TypeScript for type safety and consistency
 - **Database**: PostgreSQL with Drizzle ORM (TypeScript-first)
 - **Caching**: Redis for session storage and query caching
 - **Authentication**: JWT with refresh token strategy
-- **Validation**: Fastify's built-in JSON Schema validation
+- **Validation**: Express middleware for request validation
 
 ### Development & Operations
 - **Monorepo**: Turborepo for workspace management
@@ -89,8 +88,8 @@ NiftyTools/
 
 ### Prerequisites
 
-- [Bun](https://bun.sh) (v1.2.0 or later)
-- Node.js 22+ (latest version recommended)
+- Node.js 24+ (latest version recommended)
+- npm (comes with Node.js)
 
 ### Installation
 
@@ -99,15 +98,11 @@ NiftyTools/
 git clone <repository-url>
 cd niftytools
 
-# Install Bun (if not already installed)
-curl -fsSL https://bun.sh/install | bash
-export PATH="$HOME/.bun/bin:$PATH"
-
 # Install all dependencies
-bun install
+npm install
 
 # Build the project
-bun run build
+npm run build
 ```
 
 ### Running the Application
@@ -117,26 +112,26 @@ bun run build
 ```bash
 # Terminal 1: Start the backend API server
 cd apps/backend
-bun run dev
+npm run dev
 
-# Terminal 2: Start the frontend application  
+# Terminal 2: Start the frontend application
 cd apps/user-frontend
-bun run dev
+npm run dev
 ```
 
 #### Option 2: Production Build
 
 ```bash
 # Build all applications
-bun run build
+npm run build
 
 # Start backend in production mode
 cd apps/backend
-bun run start
+npm run start
 
 # Serve frontend (in another terminal)
 cd apps/user-frontend
-bun run preview
+npm run preview
 ```
 
 ### Access the Application
@@ -164,22 +159,22 @@ Once both servers are running:
 
 ```bash
 # Build entire project
-bun run build
+npm run build
 
 # Backend commands
 cd apps/backend
-bun run dev          # Development mode with hot reload
-bun run start        # Production mode
-bun run build        # Build TypeScript
+npm run dev          # Development mode with hot reload
+npm run start        # Production mode
+npm run build        # Build TypeScript
 
-# Frontend commands  
+# Frontend commands
 cd apps/user-frontend
-bun run dev          # Development server with hot reload
-bun run build        # Production build
-bun run preview      # Preview production build
+npm run dev          # Development server with hot reload
+npm run build        # Production build
+npm run preview      # Preview production build
 
 # Type checking
-bun run type-check   # Check TypeScript types across all packages
+npm run type-check   # Check TypeScript types across all packages
 ```
 
 ## 🔧 Configuration
@@ -214,7 +209,7 @@ JWT_REFRESH_SECRET="your-refresh-secret"
 
 NiftyTools uses a plugin-based architecture for extending functionality. Each plugin is self-contained with its own:
 
-- **Backend Routes**: API endpoints registered with Fastify
+- **Backend Routes**: API endpoints registered with Express
 - **Database Schema**: Plugin-specific migrations and models
 - **Frontend Components**: UI components for user and admin interfaces
 - **Permissions**: Role-based access control rules
@@ -223,7 +218,7 @@ NiftyTools uses a plugin-based architecture for extending functionality. Each pl
 
 ```bash
 # Generate a new plugin
-bun run create-plugin my-feature
+npm run create-plugin my-feature
 
 # This creates:
 # plugins/my-feature/
@@ -239,19 +234,19 @@ bun run create-plugin my-feature
 
 ```bash
 # All tests
-bun run test
+npm run test
 
 # Unit tests with coverage
-bun run test:unit --coverage
+npm run test:unit --coverage
 
 # Integration tests
-bun run test:integration
+npm run test:integration
 
 # End-to-end tests
-bun run test:e2e
+npm run test:e2e
 
 # Watch mode during development
-bun run test:watch
+npm run test:watch
 ```
 
 ### Test Structure
@@ -290,12 +285,12 @@ bun run test:watch
 
 The project uses GitHub Actions (`.github/workflows/package-release.yml`) for streamlined build and release automation:
 
-- **On Push to `dev` or `main`**: 
+- **On Push to `dev` or `main`**:
   - Builds Docker images for all services (backend, user-frontend, admin-frontend)
   - Tags images with unique identifiers: `{branch}-{timestamp}-{sha}`
   - Pushes images to GitHub Container Registry
 
-- **On Push to `main`**: 
+- **On Push to `main`**:
   - Creates automatic GitHub releases with unique tags: `v{version}-{timestamp}-{sha}`
   - Generates changelog from commit history
   - Includes Docker image references in release notes
@@ -324,10 +319,10 @@ docker pull ghcr.io/your-username/niftytools-user-frontend:dev-20250724-143052-a
 
 ```bash
 # Build all applications
-bun run build
+npm run build
 
 # Run production server
-bun run start
+npm run start
 ```
 
 ### Docker Support
@@ -370,12 +365,25 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - **Vue.js Team**: For the excellent Vue 3 ecosystem
-- **Fastify Team**: For the high-performance web framework
-- **Bun Team**: For the fast JavaScript runtime
+- **Express.js Team**: For the robust web framework
+- **Node.js Team**: For the reliable JavaScript runtime
 - **Tailwind CSS**: For the utility-first CSS framework
 - **Open Source Community**: For the amazing tools and libraries
 
 ---
+
+## 🔄 Recent Changes
+
+### Migration to Node.js 24/Express with MVC Pattern
+
+This project has recently undergone a significant architectural migration:
+
+- **Runtime**: Migrated from Bun to Node.js 24 for better compatibility and ecosystem support
+- **Framework**: Migrated from Fastify to Express for improved simplicity and widespread adoption
+- **Architecture**: Implemented MVC (Model-View-Controller) pattern for better code organization and maintainability
+- **Package Manager**: Switched from Bun package manager to npm for standardization
+
+These changes maintain all existing functionality while improving the codebase structure and developer experience.
 
 ## 🔗 Links
 

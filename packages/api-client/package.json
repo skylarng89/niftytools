@@ -17,6 +17,6 @@
   },
   "dependencies": {
     "axios": "^1.7.8",
-    "@niftytools/shared": "workspace:*"
+    "@niftytools/shared": "file:../../packages/shared"
   }
 }

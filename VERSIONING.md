@@ -67,13 +67,13 @@ git push origin main
 ### Creating Changesets Manually
 ```bash
 # Interactive changeset creation
-bun run changeset
+npm run changeset
 
 # Manual version updates (for testing)
-bun run version-packages
+npm run version-packages
 
 # Manual release (CI handles this automatically)
-bun run release
+npm run release
 ```
 
 ### Version Strategies
@@ -151,7 +151,7 @@ echo '---
 Force major version bump
 ' > .changeset/force-major.md
 
-bun run version-packages
+npm run version-packages
 ```
 
 ### Release Issues

@@ -155,10 +155,6 @@ docker-compose.override.yml
 # Local development
 .local/
 
-# Bun
-bun.lockb
-.bun/
-
 # Storage uploads (local development)
 uploads/
 storage/

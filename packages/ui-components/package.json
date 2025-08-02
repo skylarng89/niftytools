@@ -23,6 +23,6 @@
     "tailwindcss": "^4.1.11"
   },
   "peerDependencies": {
-    "@niftytools/shared": "workspace:*"
+    "@niftytools/shared": "file:../../packages/shared"
   }
 }

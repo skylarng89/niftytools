@@ -1,5 +1,5 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios'
-import type { ApiResponse, SortTextRequest, SortTextResponse } from '@niftytools/shared/types'
+import type { ApiResponse, SortTextRequest, SortTextResponse } from '@niftytools/shared'
 
 export class ApiClient {
   private client: AxiosInstance

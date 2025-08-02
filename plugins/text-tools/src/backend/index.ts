@@ -1,4 +1,4 @@
-import type { FastifyInstance } from 'fastify'
+import type { Express, Router } from 'express'
 import type { Plugin, PluginConfig } from '@niftytools/shared/types'
 import { textToolsManifest } from '../plugin.manifest.js'
 import { registerTextToolsRoutes } from './routes.js'
@@ -6,11 +6,11 @@ import { registerTextToolsRoutes } from './routes.js'
 export class TextToolsPlugin implements Plugin {
   manifest = textToolsManifest
   
-  async registerBackend(fastify: FastifyInstance, _config: PluginConfig): Promise<void> {
-    // Register all text tools routes
-    await registerTextToolsRoutes(fastify)
+  registerBackend(app: Express | Router, _config: PluginConfig): void {
+    // Register all text tools routes directly on the app
+    registerTextToolsRoutes(app as Router)
     
-    fastify.log.info(`Text Tools plugin registered with ${this.manifest.endpoints.length} endpoints`)
+    console.log(`Text Tools plugin registered with ${this.manifest.endpoints.length} endpoints`)
   }
   
   async install(): Promise<void> {

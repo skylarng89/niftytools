@@ -1,18 +1,18 @@
 # User Frontend Dockerfile
-FROM oven/bun:1.2.19-slim AS base
+FROM node:24-alpine AS base
 
 # Set working directory
 WORKDIR /app
 
 # Copy workspace configuration
-COPY package.json bun.lock turbo.json tsconfig.json ./
+COPY package.json package-lock.json turbo.json tsconfig.json ./
 COPY apps/user-frontend/package.json ./apps/user-frontend/
 COPY packages/shared/package.json ./packages/shared/
 COPY packages/api-client/package.json ./packages/api-client/
 COPY packages/ui-components/package.json ./packages/ui-components/
 
 # Install dependencies
-RUN bun install
+RUN npm install
 
 # Copy source code
 COPY apps/user-frontend/ ./apps/user-frontend/
@@ -21,11 +21,11 @@ COPY packages/api-client/ ./packages/api-client/
 COPY packages/ui-components/ ./packages/ui-components/
 
 # Build shared packages first, then frontend
-RUN bun run build --filter=@niftytools/shared
-RUN bun run build --filter=@niftytools/user-frontend
+RUN npm run build --filter=@niftytools/shared
+RUN npm run build --filter=@niftytools/user-frontend
 
 # Production stage
-FROM node:22-alpine AS production
+FROM node:24-alpine AS production
 
 # Install serve package for static file serving
 RUN npm install -g serve
