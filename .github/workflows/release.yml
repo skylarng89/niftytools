@@ -7,9 +7,9 @@ on:
     branches: [main, dev]
 
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-  BUN_VERSION: '1.2.19'
+REGISTRY: ghcr.io
+IMAGE_NAME: ${{ github.repository }}
+NODE_VERSION: '24'
 
 jobs:
   # Separate job for testing and validation
@@ -25,36 +25,37 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: ${{ env.BUN_VERSION }}
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
 
       - name: Cache dependencies
         uses: actions/cache@v4
         with:
-          path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-bun-
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
 
       - name: Run linting
-        run: bun run lint
+        run: npm run lint
         continue-on-error: false
 
       - name: Run type checking
-        run: bun run type-check
+        run: npm run type-check
         continue-on-error: false
 
       - name: Run tests
-        run: bun run test
+        run: npm run test
         continue-on-error: false
 
       - name: Build applications
-        run: bun run build
+        run: npm run build
 
       - name: Check for deployment changes
         id: changes

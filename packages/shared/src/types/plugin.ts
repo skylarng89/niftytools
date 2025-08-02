@@ -1,4 +1,4 @@
-import type { FastifyInstance } from 'fastify'
+import type { Express, Router } from 'express'
 
 // Plugin system types
 export interface PluginManifest {
@@ -67,7 +67,7 @@ export interface PluginHooks {
 // Plugin instance interface
 export interface Plugin {
   manifest: PluginManifest
-  registerBackend?: (fastify: FastifyInstance, config: PluginConfig) => Promise<void>
+  registerBackend?: (app: Express | Router, config: PluginConfig) => void
   registerFrontend?: () => any
   install?: () => Promise<void>
   enable?: () => Promise<void>

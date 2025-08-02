@@ -17,13 +17,12 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "fastify": "^5.4.0",
     "vue": "^3.5.18",
-    "@fastify/multipart": "^9.0.1",
-    "@niftytools/shared": "workspace:*"
+    "@niftytools/shared": "file:../../packages/shared"
   },
   "devDependencies": {
     "typescript": "^5.8.3",
-    "@types/node": "^24.1.0"
+    "@types/node": "^24.1.0",
+    "@types/multer": "^1.4.12"
   }
 }
