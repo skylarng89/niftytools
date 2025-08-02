@@ -2,14 +2,14 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main, dev]
+    branches: [main]
   pull_request:
-    branches: [main, dev]
+    branches: [main]
 
 env:
-REGISTRY: ghcr.io
-IMAGE_NAME: ${{ github.repository }}
-NODE_VERSION: '24'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  NODE_VERSION: '24'
 
 jobs:
   # Separate job for testing and validation
