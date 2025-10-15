@@ -1,0 +1,32 @@
+@import 'tailwindcss';
+
+/* Custom global styles */
+:root {
+  font-family: 'Poppins', system-ui, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  
+  color: #1e293b; /* text-primary */
+  background-color: #f8fafc; /* background-page */
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f8fafc; /* background-page */
+}
+
+#app {
+  width: 100%;
+  margin: 0;
+  text-align: left;
+}
+
+/* Remove Typography classes */
