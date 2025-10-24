@@ -3,12 +3,13 @@ services:
     build:
       context: ./services/gateway
       dockerfile: Dockerfile
+    image: niftytools-gateway:latest
     container_name: niftytools-gateway
     ports:
-      - "3000:3000"
+      - "0.0.0.0:3000:3000"
     environment:
-      - NODE_ENV=production
-      - TEXT_TOOLS_SERVICE_URL=http://text-tools-service:3001
+      NODE_ENV: production
+      TEXT_TOOLS_SERVICE_URL: http://text-tools-service:3001
     depends_on:
       text-tools-service:
         condition: service_healthy
@@ -41,12 +42,13 @@ services:
     build:
       context: ./services/text-tools-service
       dockerfile: Dockerfile
+    image: niftytools-text-tools-service:latest
     container_name: niftytools-text-tools
     ports:
-      - "3001:3001"
+      - "0.0.0.0:3001:3001"
     environment:
-      - NODE_ENV=production
-      - PORT=3001
+      NODE_ENV: production
+      PORT: 3001
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:3001/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
@@ -76,15 +78,16 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: niftytools-frontend:latest
     container_name: niftytools-frontend
     ports:
-      - "80:80"
+      - "0.0.0.0:80:80"
     depends_on:
       gateway:
         condition: service_healthy
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:80/"]
       interval: 30s
       timeout: 3s
       retries: 3
@@ -111,3 +114,6 @@ networks:
   niftytools:
     driver: bridge
     name: niftytools
+    enable_ipv6: false
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: "true"
