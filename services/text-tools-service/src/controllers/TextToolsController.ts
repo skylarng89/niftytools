@@ -9,7 +9,7 @@ export class TextToolsController {
     try {
       logger.info('Sorting text requested', { algorithm: req.body.algorithm });
       const result = await TextToolsService.sortText(req.body);
-      logger.info('Text sorting completed', { algorithm: req.body.algorithm, lines: result.lines?.length });
+      logger.info('Text sorting completed', { algorithm: req.body.algorithm, lines: result.data.stats.processedLines });
       res.json(result);
     } catch (error) {
       logger.error('Text sorting failed', { error: error instanceof Error ? error.message : 'Unknown error' });
