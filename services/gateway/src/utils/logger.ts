@@ -20,7 +20,11 @@ const shouldLog = (level: string): boolean => {
 };
 
 // Ensure logs directory exists
-const logsDir = path.join(__dirname, '../../../logs/gateway');
+// In Docker, logs are mounted at /app/logs from the host
+const logsDir = process.env.NODE_ENV === 'production' 
+  ? '/app/logs'
+  : path.join(__dirname, '../../logs');
+
 if (!fs.existsSync(logsDir)) {
   fs.mkdirSync(logsDir, { recursive: true });
 }
