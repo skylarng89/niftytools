@@ -7,7 +7,9 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test-logger": "tsx src/test-logger.ts",
+    "test-log-levels": "tsx src/test-log-levels.ts"
   },
   "dependencies": {
     "express": "^5.1.0",

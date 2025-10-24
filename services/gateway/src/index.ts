@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import dotenv from 'dotenv';
+import logger from './utils/logger';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ const TEXT_TOOLS_SERVICE = process.env.TEXT_TOOLS_SERVICE_URL || 'http://localho
 
 // Health check
 app.get('/health', (req, res) => {
+  logger.info('Health check requested');
   res.json({
     status: 'ok',
     service: 'api-gateway',
@@ -37,7 +39,11 @@ app.use(
       '^/api/text-tools': '', // Remove /api/text-tools prefix when forwarding
     },
     onProxyReq: (proxyReq, req, res) => {
-      console.log(`[Gateway] Proxying ${req.method} ${req.originalUrl} -> ${TEXT_TOOLS_SERVICE}${req.path}`);
+      logger.info(`Proxying request`, {
+        method: req.method,
+        url: req.originalUrl,
+        target: `${TEXT_TOOLS_SERVICE}${req.path}`
+      });
       
       // Re-stream parsed body for POST/PUT requests
       if (req.body && (req.method === 'POST' || req.method === 'PUT')) {
@@ -48,7 +54,7 @@ app.use(
       }
     },
     onError: (err, req, res) => {
-      console.error('[Gateway] Proxy error:', err);
+      logger.error('Proxy error', { error: err.message, stack: err.stack });
       res.status(502).json({
         error: 'Service unavailable',
         message: 'Unable to reach the text-tools service',
@@ -59,6 +65,7 @@ app.use(
 
 // Fallback route
 app.use('*', (req, res) => {
+  logger.warn('Route not found', { url: req.originalUrl });
   res.status(404).json({
     error: 'Not found',
     message: 'The requested endpoint does not exist',
@@ -66,6 +73,6 @@ app.use('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 API Gateway running on port ${PORT}`);
-  console.log(`📡 Text Tools Service: ${TEXT_TOOLS_SERVICE}`);
+  logger.info(`🚀 API Gateway running on port ${PORT}`);
+  logger.info(`📡 Text Tools Service: ${TEXT_TOOLS_SERVICE}`);
 });

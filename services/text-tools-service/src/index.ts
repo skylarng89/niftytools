@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import routes from './routes';
+import logger from './utils/logger';
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Health check
 app.get('/health', (req, res) => {
+  logger.info('Health check requested');
   res.json({
     status: 'ok',
     service: 'text-tools-service',
@@ -29,6 +31,7 @@ app.use('/', routes);
 
 // Error handling
 app.use((req, res) => {
+  logger.warn('Route not found', { url: req.originalUrl });
   res.status(404).json({
     success: false,
     error: 'Endpoint not found',
@@ -37,5 +40,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🔧 Text Tools Service running on port ${PORT}`);
+  logger.info(`🔧 Text Tools Service running on port ${PORT}`);
 });

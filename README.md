@@ -117,6 +117,45 @@ docker compose down
 - ✅ Optimized images (~350MB total)
 - ✅ Logging with rotation
 
+## 📝 Logging
+
+All services now include centralized logging with daily rotation and configurable log levels:
+
+- **Location**: `logs/` directory with service-specific subdirectories
+- **Format**: `{service}-{YYYY-MM-DD}.log` with ISO timestamps
+- **Levels**: INFO, WARN, ERROR, DEBUG (configurable via `LOG_LEVEL` environment variable)
+- **Rotation**: Daily rotation with 7-day retention
+- **Frontend**: Logs sent to backend services via API
+
+### Log Levels
+
+Set the `LOG_LEVEL` environment variable to control verbosity:
+
+- **DEBUG**: All logs including detailed debug information
+- **INFO**: General information about application operation (default)
+- **WARN**: Warning conditions that don't stop execution
+- **ERROR**: Error conditions that may affect functionality
+
+Example `.env` configuration:
+```bash
+LOG_LEVEL=DEBUG  # Show all logs
+LOG_LEVEL=INFO   # Show info, warn, and error logs (default)
+LOG_LEVEL=WARN   # Show only warn and error logs
+LOG_LEVEL=ERROR  # Show only error logs
+```
+
+### Viewing Logs
+
+```bash
+# View all logs
+tail -f logs/*/*.log
+
+# View specific service logs
+tail -f logs/gateway/gateway-*.log
+```
+
+See `logs/VIEWING_LOGS.md` for detailed logging documentation.
+
 ### Stopping Services
 
 ```bash
