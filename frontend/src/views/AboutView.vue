@@ -61,9 +61,9 @@
           <div>
             <h3 class="font-medium text-gray-900 mb-2">Backend</h3>
             <ul class="text-gray-600 space-y-1">
-              <li>• Fastify</li>
-              <li>• Bun Runtime</li>
-              <li>• Node.js</li>
+              <li>• FastAPI (Python)</li>
+              <li>• Express.js (Gateway)</li>
+              <li>• Docker</li>
               <li>• OpenAPI/Swagger</li>
             </ul>
           </div>

@@ -41,7 +41,8 @@ A collection of developer utility tools built with a **microservices architectur
 
 ### Prerequisites
 
-- **Node.js**: v24 or higher
+- **Node.js**: v24 or higher (for Gateway and Frontend)
+- **Python**: v3.11 or higher (for Backend Services)
 - **npm**: v10 or higher
 - **Docker** (optional): For containerized deployment
 
@@ -54,9 +55,9 @@ A collection of developer utility tools built with a **microservices architectur
 cd services/gateway
 npm install
 
-# Text Tools Service
-cd ../text-tools-service
-npm install
+# Text Tools Service (Python)
+cd ../text-tools-service-py
+pip install -r requirements.txt
 
 # Frontend
 cd ../../frontend
@@ -65,16 +66,20 @@ npm install
 
 #### 2. Start Services
 
-Open 3 terminal windows:
+Use the deployment scripts for easier management:
 
 ```bash
+# Development mode
+./dev.sh
+
+# Or manually in 3 terminals:
 # Terminal 1: Gateway
 cd services/gateway
 npm run dev     # Runs on http://localhost:3000
 
-# Terminal 2: Text Tools Service
-cd services/text-tools-service
-npm run dev     # Runs on http://localhost:3001
+# Terminal 2: Text Tools Service (Python)
+cd services/text-tools-service-py
+python -m uvicorn src.main:app --host 0.0.0.0 --port 3001 --reload
 
 # Terminal 3: Frontend
 cd frontend
@@ -89,7 +94,23 @@ npm run dev     # Runs on http://localhost:5173
 
 ### Docker Deployment (Production)
 
-Docker is configured for **production deployments only**. For development, use the manual setup above (faster and simpler).
+Use the deployment scripts for production:
+
+```bash
+# Production deployment
+./prod.sh
+
+# View logs
+docker compose logs -f
+
+# Stop services
+./stop.sh
+
+# Check status
+./status.sh
+```
+
+Or use Docker Compose directly:
 
 ```bash
 # Build and start all services
@@ -98,11 +119,8 @@ docker compose up -d --build
 # View logs
 docker compose logs -f
 
-# Check health status
-docker compose ps
-
-# Stop all services
-docker compose down
+# Stop services
+docker compose down -v
 ```
 
 **Access the application:**
@@ -116,6 +134,45 @@ docker compose down
 - ✅ Non-root users for security
 - ✅ Optimized images (~350MB total)
 - ✅ Logging with rotation
+
+## 📝 Logging
+
+All services now include centralized logging with daily rotation and configurable log levels:
+
+- **Location**: `logs/` directory with service-specific subdirectories
+- **Format**: `{service}-{YYYY-MM-DD}.log` with ISO timestamps
+- **Levels**: INFO, WARN, ERROR, DEBUG (configurable via `LOG_LEVEL` environment variable)
+- **Rotation**: Daily rotation with 7-day retention
+- **Frontend**: Logs sent to backend services via API
+
+### Log Levels
+
+Set the `LOG_LEVEL` environment variable to control verbosity:
+
+- **DEBUG**: All logs including detailed debug information
+- **INFO**: General information about application operation (default)
+- **WARN**: Warning conditions that don't stop execution
+- **ERROR**: Error conditions that may affect functionality
+
+Example `.env` configuration:
+```bash
+LOG_LEVEL=DEBUG  # Show all logs
+LOG_LEVEL=INFO   # Show info, warn, and error logs (default)
+LOG_LEVEL=WARN   # Show only warn and error logs
+LOG_LEVEL=ERROR  # Show only error logs
+```
+
+### Viewing Logs
+
+```bash
+# View all logs
+tail -f logs/*/*.log
+
+# View specific service logs
+tail -f logs/gateway/gateway-*.log
+```
+
+See `logs/VIEWING_LOGS.md` for detailed logging documentation.
 
 ### Stopping Services
 
