@@ -1,14 +1,19 @@
+# Testing configuration for FastAPI Python backend
+# Enables testing and performance validation
+version: '3.8'
+
 services:
   gateway:
     build:
       context: ./services/gateway
       dockerfile: Dockerfile
     image: niftytools-gateway:latest
-    container_name: niftytools-gateway
+    container_name: niftytools-gateway-test
     ports:
       - "0.0.0.0:3000:3000"
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
+      LOG_LEVEL: INFO
       TEXT_TOOLS_PYTHON_URL: http://text-tools-python:3001
     depends_on:
       text-tools-python:
@@ -20,24 +25,12 @@ services:
       timeout: 3s
       retries: 3
       start_period: 10s
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 512M
-        reservations:
-          cpus: '0.25'
-          memory: 256M
     volumes:
       - ./logs/gateway:/app/logs
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
     networks:
-      - niftytools
+      - niftytools-test
 
+  # Python ( FastAPI ) backend
   text-tools-python:
     build:
       context: ./services/text-tools-service-py
@@ -47,8 +40,9 @@ services:
     ports:
       - "0.0.0.0:3001:3001"
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
       PORT: 3001
+      LOG_LEVEL: INFO
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:3001/health', timeout=2).raise_for_status()"]
@@ -56,64 +50,35 @@ services:
       timeout: 3s
       retries: 3
       start_period: 10s
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 512M
-        reservations:
-          cpus: '0.25'
-          memory: 256M
     volumes:
       - ./logs/text-tools-service-py:/app/logs
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
     networks:
-      - niftytools
+      - niftytools-test
 
+  # Frontend for testing
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     image: niftytools-frontend:latest
-    container_name: niftytools-frontend
+    container_name: niftytools-frontend-test
     ports:
-      - "0.0.0.0:80:80"
+      - "0.0.0.0:8080:80"
     depends_on:
       gateway:
         condition: service_healthy
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:80/"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1/"]
       interval: 30s
       timeout: 3s
       retries: 3
       start_period: 10s
-    deploy:
-      resources:
-        limits:
-          cpus: '0.25'
-          memory: 256M
-        reservations:
-          cpus: '0.1'
-          memory: 128M
-    volumes:
-      - ./logs/frontend:/app/logs
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
     networks:
-      - niftytools
+      - niftytools-test
 
 networks:
-  niftytools:
+  niftytools-test:
     driver: bridge
-    name: niftytools
+    name: niftytools-test
     enable_ipv6: false
-    driver_opts:
-      com.docker.network.bridge.enable_ip_masquerade: "true"

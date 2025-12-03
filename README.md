@@ -41,7 +41,8 @@ A collection of developer utility tools built with a **microservices architectur
 
 ### Prerequisites
 
-- **Node.js**: v24 or higher
+- **Node.js**: v24 or higher (for Gateway and Frontend)
+- **Python**: v3.11 or higher (for Backend Services)
 - **npm**: v10 or higher
 - **Docker** (optional): For containerized deployment
 
@@ -54,9 +55,9 @@ A collection of developer utility tools built with a **microservices architectur
 cd services/gateway
 npm install
 
-# Text Tools Service
-cd ../text-tools-service
-npm install
+# Text Tools Service (Python)
+cd ../text-tools-service-py
+pip install -r requirements.txt
 
 # Frontend
 cd ../../frontend
@@ -65,16 +66,20 @@ npm install
 
 #### 2. Start Services
 
-Open 3 terminal windows:
+Use the deployment scripts for easier management:
 
 ```bash
+# Development mode
+./dev.sh
+
+# Or manually in 3 terminals:
 # Terminal 1: Gateway
 cd services/gateway
 npm run dev     # Runs on http://localhost:3000
 
-# Terminal 2: Text Tools Service
-cd services/text-tools-service
-npm run dev     # Runs on http://localhost:3001
+# Terminal 2: Text Tools Service (Python)
+cd services/text-tools-service-py
+python -m uvicorn src.main:app --host 0.0.0.0 --port 3001 --reload
 
 # Terminal 3: Frontend
 cd frontend
@@ -89,7 +94,23 @@ npm run dev     # Runs on http://localhost:5173
 
 ### Docker Deployment (Production)
 
-Docker is configured for **production deployments only**. For development, use the manual setup above (faster and simpler).
+Use the deployment scripts for production:
+
+```bash
+# Production deployment
+./prod.sh
+
+# View logs
+docker compose logs -f
+
+# Stop services
+./stop.sh
+
+# Check status
+./status.sh
+```
+
+Or use Docker Compose directly:
 
 ```bash
 # Build and start all services
@@ -98,11 +119,8 @@ docker compose up -d --build
 # View logs
 docker compose logs -f
 
-# Check health status
-docker compose ps
-
-# Stop all services
-docker compose down
+# Stop services
+docker compose down -v
 ```
 
 **Access the application:**

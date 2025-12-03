@@ -15,8 +15,8 @@ updates:
     schedule:
       interval: "weekly"
     target-branch: "dev"
-  - package-ecosystem: "npm"
-    directory: "services/text-tools-service"
+  - package-ecosystem: "pip"
+    directory: "services/text-tools-service-py"
     schedule:
       interval: "weekly"
     target-branch: "dev"

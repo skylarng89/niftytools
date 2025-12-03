@@ -19,7 +19,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Service URLs from environment variables
-const TEXT_TOOLS_SERVICE = process.env.TEXT_TOOLS_SERVICE_URL || 'http://localhost:3001';
+const TEXT_TOOLS_PYTHON_URL = process.env.TEXT_TOOLS_PYTHON_URL || 'http://localhost:3002';
 
 // Health check
 app.get('/health', (req, res) => {
@@ -35,7 +35,7 @@ app.get('/health', (req, res) => {
 app.use(
   '/api/text-tools',
   createProxyMiddleware({
-    target: TEXT_TOOLS_SERVICE,
+    target: TEXT_TOOLS_PYTHON_URL,
     changeOrigin: true,
     pathRewrite: {
       '^/api/text-tools': '', // Remove /api/text-tools prefix when forwarding
@@ -46,7 +46,8 @@ app.use(
         logger.info(`Proxying request`, {
           method: expressReq.method,
           url: expressReq.originalUrl,
-          target: `${TEXT_TOOLS_SERVICE}${expressReq.path}`
+          target: `${TEXT_TOOLS_PYTHON_URL}${expressReq.path}`,
+          backend: 'python'
         });
         
         // Re-stream parsed body for POST/PUT requests
@@ -82,5 +83,5 @@ app.use((req, res) => {
 
 app.listen(PORT, () => {
   logger.info(`🚀 API Gateway running on port ${PORT}`);
-  logger.info(`📡 Text Tools Service: ${TEXT_TOOLS_SERVICE}`);
+  logger.info(`🐍 Python Backend: ${TEXT_TOOLS_PYTHON_URL}`);
 });
