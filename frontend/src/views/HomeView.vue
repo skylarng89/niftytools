@@ -5,7 +5,7 @@
       <div class="hero__container">
         <div class="hero__content animate-fade-in">
           <h1 class="hero__title">
-            Developer's
+            A Developer's
             <span class="gradient-text">Swiss Army Knife</span>
           </h1>
           <p class="hero__subtitle">

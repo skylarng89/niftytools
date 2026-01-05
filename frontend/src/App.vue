@@ -41,7 +41,7 @@
         <div class="app-footer__content">
           <div class="app-footer__info">
             <p class="app-footer__text">
-              <span class="gradient-text">NiftyTools</span> - Developer's Swiss Army Knife
+              <NiftyText :height="18" class="footer-logo" /> - Developer's Swiss Army Knife
             </p>
             <p class="app-footer__version">
               Version {{ appVersion }} • Built with ❤️ using Vue 3 & FastAPI
@@ -77,6 +77,7 @@
 <script setup lang="ts">
   import { ref } from 'vue'
   import NiftyLogo from './components/NiftyLogo.vue'
+  import NiftyText from './components/NiftyText.vue'
 
   const appVersion = ref('1.1.0')
   const currentYear = new Date().getFullYear()
@@ -253,6 +254,14 @@
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--color-dark-text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .footer-logo {
+    display: inline-block;
+    vertical-align: middle;
   }
 
   .app-footer__version {

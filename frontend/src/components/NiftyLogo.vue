@@ -1,117 +1,22 @@
 <template>
-  <svg 
-    :viewBox="viewBox" 
-    :width="width" 
-    :height="height" 
-    xmlns="http://www.w3.org/2000/svg"
-    :class="[className, 'nifty-logo']"
-  >
-    <defs>
-      <linearGradient :id="toolsGradientId" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style="stop-color:hsl(250, 75%, 55%);stop-opacity:1" />
-        <stop offset="100%" style="stop-color:hsl(280, 75%, 60%);stop-opacity:1" />
-      </linearGradient>
-      <linearGradient :id="textGradientId" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" style="stop-color:hsl(250, 75%, 55%);stop-opacity:1" />
-        <stop offset="50%" style="stop-color:hsl(280, 75%, 60%);stop-opacity:1" />
-        <stop offset="100%" style="stop-color:hsl(180, 75%, 50%);stop-opacity:1" />
-      </linearGradient>
-    </defs>
-    <circle cx="30" cy="30" r="22" :fill="`url(#${toolsGradientId})`" opacity="0.15" />
-    <g transform="translate(30, 30)">
-      <path 
-        d="M-8 -12 L-6 -14 L6 -2 L8 -4 L10 -2 L8 0 L6 2 L4 0 L-8 -12 Z" 
-        :fill="`url(#${toolsGradientId})`"
-        opacity="0.9" 
-      />
-      <circle 
-        cx="6" 
-        cy="6" 
-        r="8" 
-        fill="none" 
-        :stroke="`url(#${toolsGradientId})`" 
-        stroke-width="2" 
-        opacity="0.7" 
-      />
-      <circle 
-        cx="6" 
-        cy="6" 
-        r="4" 
-        :fill="`url(#${toolsGradientId})`" 
-        opacity="0.5" 
-      />
-      <g :stroke="`url(#${toolsGradientId})`" stroke-width="1.5" opacity="0.8">
-        <line x1="6" y1="-2" x2="6" y2="0" />
-        <line x1="14" y1="6" x2="12" y2="6" />
-        <line x1="6" y1="14" x2="6" y2="12" />
-        <line x1="-2" y1="6" x2="0" y2="6" />
-      </g>
-      <path 
-        d="M-12 -6 L-16 -2 L-12 2" 
-        fill="none" 
-        :stroke="`url(#${toolsGradientId})`" 
-        stroke-width="2"
-        opacity="0.7" 
-      />
-      <path 
-        d="M12 -6 L16 -2 L12 2" 
-        fill="none" 
-        :stroke="`url(#${toolsGradientId})`" 
-        stroke-width="2"
-        opacity="0.7" 
-      />
-    </g>
-    <text 
-      x="65" 
-      y="38" 
-      font-family="Inter, sans-serif" 
-      :font-size="fontSize" 
-      font-weight="800"
-      :fill="`url(#${textGradientId})`"
-    >
-      NiftyTools
-    </text>
-    <circle cx="170" cy="15" r="2" fill="hsl(250, 75%, 55%)" opacity="0.4" />
-    <circle cx="180" cy="20" r="1.5" fill="hsl(280, 75%, 60%)" opacity="0.5" />
-    <circle cx="175" cy="30" r="1" fill="hsl(180, 75%, 50%)" opacity="0.3" />
-  </svg>
+  <img src="/logo-full.svg" alt="NiftyTools" :style="{ height: height + 'px', width: 'auto' }"
+    class="nifty-logo-full" />
 </template>
 
 <script setup lang="ts">
-interface Props {
-  width?: string | number
-  height?: string | number
-  fontSize?: string
-  className?: string
-}
+  interface Props {
+    height?: number
+  }
 
-const props = withDefaults(defineProps<Props>(), {
-  width: 200,
-  height: 60,
-  fontSize: '1.5rem',
-  className: ''
-})
-
-// Use props to avoid linting error
-const { width, height, fontSize, className } = props
-
-// Generate unique gradient IDs to avoid conflicts
-const toolsGradientId = `toolsGradient-${Math.random().toString(36).substr(2, 9)}`
-const textGradientId = `textGradient-${Math.random().toString(36).substr(2, 9)}`
-const viewBox = "0 0 200 60"
+  withDefaults(defineProps<Props>(), {
+    height: 40
+  })
 </script>
 
 <style scoped>
-.nifty-logo {
-  animation: logoFloat 3s ease-in-out infinite;
-}
-
-@keyframes logoFloat {
-  0%, 100% {
-    transform: translateY(0);
+  .nifty-logo-full {
+    display: block;
+    max-width: 100%;
+    height: auto;
   }
-  50% {
-    transform: translateY(-2px);
-  }
-}
 </style>
